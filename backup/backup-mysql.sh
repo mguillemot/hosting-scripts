@@ -10,8 +10,10 @@
 # Config:
 BACKUP_HOME="/home/backup/mysql-hourly"
 MYSQL_USER="root"
-MYSQL_PWD="xxx"
+MYSQL_PWD=""
+KEEP_DAYS=7
 
+umask 0077
 echo ----------------------------------------------------------------------------
 DATE=`date +%Y%m%d-%H%M%S`
 echo "$DATE: Starting MySQL backup..."
@@ -20,7 +22,7 @@ mysqldump --all-databases -u $MYSQL_USER -p$MYSQL_PWD | gzip > $BACKUP_HOME/back
 DATE=`date +%Y%m%d-%H%M%S`
 echo "$DATE: MySQL dump complete."
 echo "$DATE: Cleaning old backups..."
-find -mtime +7 -delete
+find -mtime +$KEEP_DAYS -delete
 DATE=`date +%Y%m%d-%H%M%S`
 echo "$DATE: Done!"
 echo 

@@ -6,16 +6,43 @@
 #
 # Author: Matthieu Guillemot 
 # Created: November 21, 2009
+# 1st revision: October 5, 2011
 #
 
 # Config:
-BACKUP_HOME    = "/home/backup"
-MYSQL_USER     = "root"
-MYSQL_PWD      = "xxx"
-USE_FTP_BACKUP = true
-FTP_HOST       = "ftpback-rbx3-248.ovh.net"
-FTP_USER       = "ns356869.ovh.net"
-FTP_PWD        = "36EWVPzy8"
+BACKUP_HOME    = "/home/backup/full"
+
+BACKUP_MYSQL   = true
+MYSQL_SETTINGS =
+    {
+        :user => "root",
+        :password => nil
+    }
+
+BACKUP_DIR =
+    [
+        {
+            :name => "www",
+            :path => "/home/www",
+            :exclude => ["www.npng.org/temp"]
+        },
+        {
+            :name => "redis",
+            :path => "/home/redis"
+        },
+        {
+            :name => "git",
+            :path => "/home/git"
+        }
+    ]
+
+USE_FTP_BACKUP = false
+FTP_SETTINGS =
+    {
+        :host => "",
+        :user => "",
+        :password => ""
+    }
 
 require 'date'
 require 'net/ftp'
@@ -24,32 +51,44 @@ def echo(line)
   puts "#{DateTime.now} #{line}"
 end
 
+def mysql_credentials
+  credentials  = ""
+  credentials += " --user=#{MYSQL_SETTINGS[:user]}" if MYSQL_SETTINGS[:user]
+  credentials += " --password=#{MYSQL_SETTINGS[:password]}" if MYSQL_SETTINGS[:password]
+  credentials
+end
+
 puts "----------------------------------------------------------------------------"
-
-echo "Starting MySQL backup..."
 Dir.chdir BACKUP_HOME
-Kernel.` "mysqldump --all-databases -u #{MYSQL_USER} -p#{MYSQL_PWD} | gzip > #{BACKUP_HOME}/backup-mysql-#{DateTime.now}.sql.gz"
-echo "MySQL dump complete."
+Kernel.` "umask 0077"
 
-echo "Starting www backup..."
-Dir.chdir "/home"
-Kernel.` "tar zcf #{BACKUP_HOME}/backup-www-#{DateTime.now}.tar.gz www"
-echo "www backup complete."
+if BACKUP_MYSQL
+  echo "Starting MySQL backup..."
+  Kernel.` "mysqldump --all-databases #{mysql_credentials} | gzip > #{BACKUP_HOME}/backup-mysql-#{DateTime.now}.sql.gz"
+  echo "MySQL dump complete."
+end
 
-echo "Starting ftp backup..."
-Dir.chdir "/home"
-Kernel.` "tar zcf #{BACKUP_HOME}/backup-ftp-#{DateTime.now}.tar.gz ftp"
-echo "ftp backup complete."
+BACKUP_DIR.each do |dir|
+  echo "Starting #{dir[:name]} backup (#{dir[:path]})..."
+  Dir.chdir dir[:path]
+  exclude = (dir[:exclude] || []).inject("") { |cmd,pattern| "#{cmd}--exclude=#{pattern} " }
+  Kernel.` "tar zcf #{BACKUP_HOME}/backup-#{dir[:name]}-#{DateTime.now}.tar.gz #{exclude} *"
+  echo "Complete: #{dir[:name]}"
+end
 
+Dir.chdir BACKUP_HOME
 if USE_FTP_BACKUP
-  echo "Copying everything in OVH backup ftp..."
-  ftp = Net::FTP.open(FTP_HOST, FTP_USER, FTP_PASS)
-  Dir.chdir BACKUP_HOME
+  echo "Copying everything in backup ftp..."
+  ftp = Net::FTP.open(FTP_SETTINGS[:host], FTP_SETTINGS[:user], FTP_SETTINGS[:password])
   Dir.glob('*.gz') do |file|
-    echo "Uploding #{file} (size: #{File.size(file)})"
-    ftp.putbinaryfile(file)
-    echo "Deleting #{file}"
-    File.unlink(file)
+    begin
+      echo "Uploding #{file} (size: #{File.size(file)})"
+      ftp.putbinaryfile(file)
+      echo "Deleting #{file}"
+      File.unlink(file)
+    rescue e
+      echo "ERROR: #{e}"
+    end
   end
   ftp.close
 else
