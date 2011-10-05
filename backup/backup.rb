@@ -8,7 +8,7 @@
 #
 
 # Note: a backup_config.rb file should be defined for this precise server purposes.
-$LOAD_PATH += "."
+$LOAD_PATH << "."
 require 'backup_config'
 
 require 'date'
