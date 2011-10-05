@@ -1,5 +1,3 @@
-#!/usr/bin/ruby
-
 #
 # Backup & upload script.
 # (based on the shell script backup.sh written on September 16, 2009)
@@ -9,40 +7,8 @@
 # 1st revision: October 5, 2011
 #
 
-# Config:
-BACKUP_HOME    = "/home/backup/full"
-
-BACKUP_MYSQL   = true
-MYSQL_SETTINGS =
-    {
-        :user => "root",
-        :password => nil
-    }
-
-BACKUP_DIR =
-    [
-        {
-            :name => "www",
-            :path => "/home/www",
-            :exclude => ["www.npng.org/temp"]
-        },
-        {
-            :name => "redis",
-            :path => "/home/redis"
-        },
-        {
-            :name => "git",
-            :path => "/home/git"
-        }
-    ]
-
-USE_FTP_BACKUP = false
-FTP_SETTINGS =
-    {
-        :host => "",
-        :user => "",
-        :password => ""
-    }
+# Note: a backup-config.rb file should be defined for this precise server purposes.
+require 'backup-config'
 
 require 'date'
 require 'net/ftp'
@@ -59,8 +25,8 @@ def mysql_credentials
 end
 
 puts "----------------------------------------------------------------------------"
+File.umask 0077 # Do not let any other user see our files
 Dir.chdir BACKUP_HOME
-Kernel.` "umask 0077"
 
 if BACKUP_MYSQL
   echo "Starting MySQL backup..."
