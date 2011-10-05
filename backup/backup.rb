@@ -7,8 +7,9 @@
 # 1st revision: October 5, 2011
 #
 
-# Note: a backup-config.rb file should be defined for this precise server purposes.
-require 'backup-config'
+# Note: a backup_config.rb file should be defined for this precise server purposes.
+$LOAD_PATH += "."
+require 'backup_config'
 
 require 'date'
 require 'net/ftp'
