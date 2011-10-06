@@ -1,0 +1,6 @@
+﻿Si rsyslogd tourne à 100% de CPU avec le message suivant dans le syslog :
+
+Oct  6 05:00:02 ks3094496 kernel: Cannot read proc file system: 1 - Operation not permitted.
+Oct  6 05:01:01 ks3094496 kernel: last message repeated 4386913 times
+
+Retirer son drop de privilèges pour le faire tourner en tant que root de nouveau.
