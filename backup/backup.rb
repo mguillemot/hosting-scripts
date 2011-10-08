@@ -46,18 +46,18 @@ end
 Dir.chdir BACKUP_HOME
 if USE_FTP_BACKUP
   echo "Copying everything in backup ftp..."
-  ftp = Net::FTP.open(FTP_SETTINGS[:host], FTP_SETTINGS[:user], FTP_SETTINGS[:password])
-  Dir.glob('*.gz') do |file|
-    begin
-      echo "Uploding #{file} (size: #{File.size(file)})"
-      ftp.putbinaryfile(file)
-      echo "Deleting #{file}"
-      File.unlink(file)
-    rescue e
-      echo "ERROR: #{e}"
+  Net::FTP.open(FTP_SETTINGS[:host], FTP_SETTINGS[:user], FTP_SETTINGS[:password]) do |ftp|
+    Dir.glob('*.gz') do |file|
+      begin
+        echo "Uploding #{file} (size: #{File.size(file)})"
+        ftp.putbinaryfile(file)
+        echo "Deleting #{file}"
+        File.unlink(file)
+      rescue e
+        echo "ERROR: #{e}"
+      end
     end
   end
-  ftp.close
 else
   echo "Skipping FTP backup."
   # Keep only 7 days worth of backup
