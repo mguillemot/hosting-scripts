@@ -15,9 +15,8 @@ require 'net/ftp'
 if USE_FTP_BACKUP
   puts "Backuped files are:"
   Net::FTP.open(FTP_SETTINGS[:host], FTP_SETTINGS[:user], FTP_SETTINGS[:password]) do |ftp|
-    ftp.list('*').each do |file| 
-      size = ftp.size file
-      puts "  #{file} (#{size} bytes)"
+    ftp.nlst.each do |file| 
+      puts "  #{file} (#{ftp.size file} bytes)"
     end
   end
 else
