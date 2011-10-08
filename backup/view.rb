@@ -16,7 +16,7 @@ if USE_FTP_BACKUP
   puts "Backuped files are:"
   Net::FTP.open(FTP_SETTINGS[:host], FTP_SETTINGS[:user], FTP_SETTINGS[:password]) do |ftp|
     ftp.nlst.each do |file| 
-      puts "  #{file} (#{ftp.size file} bytes)"
+      puts "  #{file}"
     end
   end
 else
