@@ -1,0 +1,15 @@
+﻿Installer squid comme proxy HTTP
+--------------------------------
+
+Installe squid sur le port 3128 par défaut.
+
+
+aptitude install squid squid-common apache2-utils
+htpasswd -c /etc/squid/squid.passwd <user>
+vi /etc/squid/squid.conf
+restart squid
+
+Modifs à apporter au fichier de conf:
+
+acl users proxy_auth REQUIRED
+http_access allow users
