@@ -1,0 +1,8 @@
+ufw default deny
+ufw limit OpenSSH
+ufw allow "Nginx Full"
+ufw allow squid
+ufw enable
+
+ufw status verbose
+ufw status numbered

@@ -4,7 +4,8 @@
 #
 # Author: Matthieu Guillemot 
 # Created: November 21, 2009
-# 1st revision: October 5, 2011
+# 1st revision: October 5, 2011 (external config file + cleanup)
+# 2nd revision: October 15, 2011 (mongodb)
 #
 
 # Note: a backup_config.rb file should be defined for this precise server purposes.
@@ -33,6 +34,14 @@ if BACKUP_MYSQL
   echo "Starting MySQL backup..."
   Kernel.` "mysqldump --all-databases #{mysql_credentials} | gzip > #{BACKUP_HOME}/backup-mysql-#{DateTime.now}.sql.gz"
   echo "MySQL dump complete."
+end
+
+if BACKUP_MONGODB
+  echo "Starting MongoDB backup..."
+  Kernel.` "/usr/bin/mongodump"
+  Kernel.` "tar cvf #{BACKUP_HOME}/backup-mongodb-#{DateTime.now}.tar dump/"
+  Kernel.` "rm -rf dump"
+  echo "MongoDB dump complete."
 end
 
 BACKUP_DIR.each do |dir|

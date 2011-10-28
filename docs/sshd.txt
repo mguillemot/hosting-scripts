@@ -1,0 +1,11 @@
+﻿Penser à changer le port par défaut en 42 dans /etc/ssh/sshd_config :
+
+Port 42
+
+Désactiver le login root (normalement coupé sous Ubuntu Server, mais pas sous Debian) :
+
+PermitRootLogin no
+
+Editer le profil ufw: vi /etc/ufw/applications.d/openssh-server
+
+Redémarrer le service : restart ssh
