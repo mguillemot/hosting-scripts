@@ -5,7 +5,7 @@
 echo "Installing PHP..."
 
 ME=`whoami`
-if [ "$ME" -ne "root" ]; then
+if [ "$ME" != "root" ]; then
 	echo "ERROR: This script must be executed as root."
 	exit 1
 fi

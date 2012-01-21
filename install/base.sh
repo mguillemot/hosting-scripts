@@ -7,14 +7,14 @@
 echo "Installing base system..."
 
 ME=`whoami`
-if [ "$ME" -ne "root" ]; then
+if [ "$ME" != "root" ]; then
 	echo "ERROR: This script must be executed as root."
 	exit 1
 fi
 
 echo
 echo "Installing base packages..."
-apt-get install aptitude git htop curl wget ntp bind9
+apt-get install aptitude git htop curl wget ntp bind9 dos2unix
 
 echo
 echo "Checking-out hosting scripts..."

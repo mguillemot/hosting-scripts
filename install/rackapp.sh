@@ -11,7 +11,7 @@ fi
 echo "Installing rack application $APPNAME..."
 
 ME=`whoami`
-if [ "$ME" -ne "root" ]; then
+if [ "$ME" != "root" ]; then
 	echo "ERROR: This script must be executed as root."
 	exit 1
 fi
@@ -40,13 +40,13 @@ fi
 echo
 echo "Installing init.d script into /etc/init.d/$APPNAME"
 cd
-cat hosting-scripts/services/unicorn | sed s/XXXXXX/$APPNAME/g > /etc/init.d/$APPNAME
+cat /root/hosting-scripts/services/unicorn | sed s/XXXXXX/$APPNAME/g > /etc/init.d/$APPNAME
 update-rc.d $APPNAME defaults 
 
 echo
 echo "Installing nginx site into /etc/nginx/sites-available/$APPNAME"
 cd 
-cat hosting-scripts/nginx/unicorn-site | sed s/XXXXXX/$APPNAME/g > /etc/nginx/sites-available/$APPNAME
+cat /root/hosting-scripts/nginx/unicorn-site | sed s/XXXXXX/$APPNAME/g > /etc/nginx/sites-available/$APPNAME
 
 echo
 echo "The site can be enabled in nginx with the following:"
