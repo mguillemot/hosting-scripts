@@ -46,7 +46,7 @@ update-rc.d $APPNAME defaults
 echo
 echo "Installing nginx site into /etc/nginx/sites-available/$APPNAME"
 cd 
-cat /root/hosting-scripts/nginx/unicorn-site | sed s/XXXXXX/$APPNAME/g > /etc/nginx/sites-available/$APPNAME
+cat /root/hosting-scripts/nginx-sites/unicorn-site | sed s/XXXXXX/$APPNAME/g > /etc/nginx/sites-available/$APPNAME
 
 echo
 echo "The site can be enabled in nginx with the following:"
