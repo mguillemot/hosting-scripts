@@ -41,6 +41,7 @@ echo
 echo "Installing init.d script into /etc/init.d/$APPNAME"
 cd
 cat /root/hosting-scripts/services/unicorn | sed s/XXXXXX/$APPNAME/g > /etc/init.d/$APPNAME
+chmox +x /etc/init.d/$APPNAME
 update-rc.d $APPNAME defaults 
 
 echo

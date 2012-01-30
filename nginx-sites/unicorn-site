@@ -17,13 +17,13 @@ server {
 	access_log  /var/log/nginx/XXXXXX.access.log;
 	rewrite_log on;
 
+	root /home/rackapps/XXXXXX/public;
+	
 	location / {
-		proxy_pass         http://XXXXXX;
-		proxy_redirect     off;
-
 		proxy_set_header   Host             $host;
 		proxy_set_header   X-Real-IP        $remote_addr;
 		proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
+		proxy_redirect     off;
 
 		client_max_body_size       10m;
 		client_body_buffer_size    128k;
@@ -36,20 +36,15 @@ server {
 		proxy_buffers              4 32k;
 		proxy_busy_buffers_size    64k;
 		proxy_temp_file_write_size 64k;
+		
+		if (!-f $request_filename) {
+			proxy_pass http://XXXXXX;
+			break;
+		}
 	}
-
-	# if the request is for a static resource, nginx should serve it directly
-	# and add a far future expires header to it, making the browser
-	# cache the resource and navigate faster over the website
-	location ~ ^/(images|javascripts|stylesheets|system|swf|fonts|assets)/  {
-		root /home/rakeapps/XXXXXX/public;
-		expires max;
-		break;
-	}
-
-	location /favicon.ico {
-		alias /home/rakeapps/XXXXXX/public/favicon.ico;
-		expires max;
-		break;
+	
+	error_page 500 502 503 504 /500.html;
+	location = /500.html {
+		root /home/rackapps/XXXXXX/public;
 	}
 }

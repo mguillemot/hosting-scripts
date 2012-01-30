@@ -6,3 +6,11 @@ ufw enable
 
 ufw status verbose
 ufw status numbered
+
+Si besoin d'installer une appli custom:
+
+PROFILE=/etc/ufw/applications.d/gos
+echo "[GoS]" > $PROFILE
+echo "title=Gangs of Space game server + socket policy server" >> $PROFILE
+echo "ports=843,1337/tcp" >> $PROFILE
+ufw allow GoS
