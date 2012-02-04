@@ -4,7 +4,7 @@ server {
 
 	# Uncomment for SSL access:
 	#
-	#listen 443 default ssl;
+	#listen               443 default ssl;
 	#ssl_certificate      /etc/nginx/ssl/XXXXXX.crt;
 	#ssl_certificate_key  /etc/nginx/ssl/XXXXXX.key;
 	#ssl_protocols        SSLv3 TLSv1;
@@ -13,16 +13,17 @@ server {
 	access_log  /var/log/nginx/XXXXXX.access.log;
 	rewrite_log on;
 
+	root   /home/www/XXXXXX;
+
 	location / {
-		root   /home/www/XXXXXX;
-		index  index.php index.html index.htm;
+		index index.php index.html index.htm;
 	}
 
 	# pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
 	location ~ \.php$ {
 		fastcgi_pass   127.0.0.1:9000;
 		fastcgi_index  index.php;
-		fastcgi_param  SCRIPT_FILENAME /home/www/XXXXXX$fastcgi_script_name;
+		fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;
 		include        fastcgi_params;
 	}
 
@@ -31,3 +32,11 @@ server {
 		deny  all;
 	}
 }
+
+# Uncomment to redirect subdomain to root domain:
+#
+#server {
+#	listen      80;
+#	server_name www.XXXXXX.com;
+#	rewrite     ^(.*) http://XXXXXX.com$1 permanent;
+#}

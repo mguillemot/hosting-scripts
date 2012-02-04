@@ -7,6 +7,8 @@ ufw enable
 ufw status verbose
 ufw status numbered
 
+==========
+
 Si besoin d'installer une appli custom:
 
 PROFILE=/etc/ufw/applications.d/gos
@@ -14,3 +16,27 @@ echo "[GoS]" > $PROFILE
 echo "title=Gangs of Space game server + socket policy server" >> $PROFILE
 echo "ports=843,1337/tcp" >> $PROFILE
 ufw allow GoS
+
+==========
+
+Si besoin de motifier une appli custom:
+
+Apres avoir change le fichier profil:
+ufw app reload GoS
+
+==========
+
+Si besoin de router un port:
+
+(Exemple pour rediriger le port 80 externe sur le port 8080 interne. PENSER A ALLOW LE 8080 ET NON LE 80!)
+
+Editer /etc/ufw/before.rules et ajouter au tout debut:
+
+*nat
+:PREROUTING ACCEPT [0:0]
+-A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080
+COMMIT
+
+puis:
+
+restart ufw
