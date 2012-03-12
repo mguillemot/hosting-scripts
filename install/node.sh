@@ -23,7 +23,7 @@ apt-get update
 
 echo
 echo "Installing node.js..."
-apt-get install nodejs
+apt-get install nodejs nodejs-dev
 
 echo
 echo "Installing NPM..."
