@@ -17,6 +17,10 @@ apt-get -y update
 apt-get -y install postgresql libpq-dev
 
 echo
+echo "Setting up postgres password..."
+sudo -u postgres psql -c '\password'
+
+echo
 echo "Moving the data directory to /home..."
 /etc/init.d/postgresql stop
 mv /var/lib/postgresql /home
