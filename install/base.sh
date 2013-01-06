@@ -1,8 +1,9 @@
 #!/bin/bash
 
-# Base installation script. Will:
+# Base system installation. It will:
 #  - get the basic packages for common stuff (git, htop...)
 #  - checkout the hosting scripts in /root/hosting-scripts
+#  - ensure add-apt-repository is available for usage by the other scripts to follow
 
 echo "Installing base system..."
 
@@ -14,12 +15,12 @@ fi
 
 echo
 echo "Installing base packages..."
-apt-get update
 apt-get install -y aptitude git htop curl wget ntp bind9 dos2unix
 
 echo
 echo "Upgrading base system..."
-apt-get upgrade -y
+aptitude update
+aptitude safe-upgrade
 
 echo
 echo "Checking-out hosting scripts..."
