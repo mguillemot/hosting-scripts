@@ -2,7 +2,7 @@
 
 # PostgreSQL installation script.
 
-echo "Installing PostgreSQL..."
+echo "Installing PostgreSQL 9.2..."
 
 ME=`whoami`
 if [ "$ME" != "root" ]; then
@@ -14,7 +14,7 @@ echo
 echo "Installing packages..."
 add-apt-repository ppa:pitti/postgresql
 apt-get -y update
-apt-get -y install postgresql libpq-dev
+apt-get -y install postgresql-9.2 libpq-dev
 
 echo
 echo "Setting up postgres password..."
@@ -24,7 +24,7 @@ echo
 echo "Moving the data directory to /home..."
 /etc/init.d/postgresql stop
 mv /var/lib/postgresql /home
-cat /etc/postgresql/9.1/main/postgresql.conf | sed 's/data_directory = \'\/var\/lib\/postgresql\/9.1\/main\'/data_directory = \'\/home\/postgresql\/9.1\/main\'/g' > /etc/postgresql/9.1/main/postgresql.conf
+cat /etc/postgresql/9.2/main/postgresql.conf | sed 's/data_directory = \'\/var\/lib\/postgresql\/9.2\/main\'/data_directory = \'\/home\/postgresql\/9.2\/main\'/g' > /etc/postgresql/9.2/main/postgresql.conf
 /etc/init.d/postgresql start
 
 echo
