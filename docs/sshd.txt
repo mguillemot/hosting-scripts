@@ -8,4 +8,7 @@ PermitRootLogin no
 
 Editer le profil ufw: vi /etc/ufw/applications.d/openssh-server
 
-Redémarrer le service : restart ssh
+Redémarrer le service : 
+restart ssh (Ubuntu)
+ou
+/etc/init.d/ssh restart (Debian)

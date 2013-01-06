@@ -24,7 +24,7 @@ echo
 echo "Moving the data directory to /home..."
 /etc/init.d/postgresql stop
 mv /var/lib/postgresql /home
-cat /etc/postgresql/9.2/main/postgresql.conf | sed 's/data_directory = \'\/var\/lib\/postgresql\/9.2\/main\'/data_directory = \'\/home\/postgresql\/9.2\/main\'/g' > /etc/postgresql/9.2/main/postgresql.conf
+ln -s /home/postgresql /var/lib/postgresql
 /etc/init.d/postgresql start
 
 echo

@@ -6,7 +6,7 @@ ZSH_THEME="candy"
 
 # Aliases
 alias du="du -h --max-depth=1"
-alias dh="dh -h"
+alias df="df -h"
 alias s="screen -DRU"
 
 # Disable bi-weekly auto-update checks

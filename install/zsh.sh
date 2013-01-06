@@ -20,7 +20,7 @@ echo "Setting .zshrc..."
 rm -f ~/.zshrc
 if [ -e /root/hosting-scripts/settings/zshrc ]; then
 	echo "Using .zshrc from hosting-scripts..."
-	ln -s ~/.zshrc /root/hosting-scripts/settings/zshrc
+	ln -s /root/hosting-scripts/settings/zshrc ~/.zshrc
 else
 	echo "Using default .zshrc from oh-my-zsh..."
 	cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
