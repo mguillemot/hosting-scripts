@@ -32,8 +32,9 @@ echo
 echo "Checking for add-apt-repository..."
 if ! type "add-apt-repository" 2> /dev/null; then
 		echo "...necessary. Installing script..."
+		chmod 500 /root/hosting-scripts/debian/add-apt-repository.sh
 		ln -s /root/hosting-scripts/debian/add-apt-repository.sh /usr/bin/add-apt-repository
-		chmod 500 /usr/bin/add-apt-repository
+		echo
 		add-apt-repository
 else
 	echo "...not necessary"
