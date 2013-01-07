@@ -38,20 +38,17 @@ fi
 
 echo
 echo "Installing init.d script into /etc/init.d/$APPNAME"
-cd
 cat /root/hosting-scripts/services/unicorn | sed s/XXXXXX/$APPNAME/g > /etc/init.d/$APPNAME
 chmod +x /etc/init.d/$APPNAME
 update-rc.d $APPNAME defaults 
 
 echo
 echo "Installing nginx site into /etc/nginx/sites-available/$APPNAME"
-cd 
 cat /root/hosting-scripts/nginx-sites/unicorn-site | sed s/XXXXXX/$APPNAME/g > /etc/nginx/sites-available/$APPNAME
 
 echo
 echo "Creating manual deploy script in /root/deploy-$APPNAME.sh"
 cat /root/hosting-scripts/deploy/manual/deploy.sh | sed s/XXXXXX/$APPNAME/g > /root/deploy-$APPNAME.sh
-
 
 echo
 echo "The site can be enabled in nginx with the following:"
