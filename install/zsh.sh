@@ -16,15 +16,9 @@ rm -Rf ~/.oh-my-zsh
 git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 chsh -s /bin/zsh
 
-echo "Setting .zshrc..."
+echo "Setting .zshrc for root..."
 rm -f ~/.zshrc
-if [ -e /root/hosting-scripts/settings/zshrc ]; then
-	echo "Using .zshrc from hosting-scripts..."
-	ln -s /root/hosting-scripts/settings/zshrc ~/.zshrc
-else
-	echo "Using default .zshrc from oh-my-zsh..."
-	cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
-fi
+ln -s /root/hosting-scripts/settings/zshrc ~/.zshrc
 
 echo
 echo "All done! (restart the shell for changes to take effect)"

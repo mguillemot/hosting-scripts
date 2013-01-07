@@ -1,11 +1,11 @@
 #!/bin/bash
 
-APPNAME="XXXXXX"
-CHECKOUT_PATH="/home/www/$APPNAME"
-REPO="ssh://git@bitbucket.org/mguillemot/gos-web.git"
-USER="www-data"
-LINK_TO="/home/rackapps/$APPNAME"
-UPLOAD_PATH="/home/rackapps/$APPNAME-uploads"
+APPNAME="XXXXXX"                                     # the name of the rack application
+REPO="ssh://git@bitbucket.org/mguillemot/XXXXXX.git" # where to get the code from
+CHECKOUT_PATH="~/$APPNAME"                           # where to store all the versions
+USER="XXXXXX"                                        # system user which will own the files
+LINK_TO="/home/rackapps/$APPNAME"                    # link point for init.d script
+UPLOAD_PATH="/home/rackapps/$APPNAME-uploads"        # dir preserved between deployments (might be disabled by setting to blank)
 
 VERSION=$(date +%s)
 DEPLOY_PATH="$CHECKOUT_PATH/$VERSION"
@@ -50,8 +50,10 @@ rm -f $LINK_TO
 sudo -u $USER ln -s $DEPLOY_PATH $LINK_TO
 
 # Add symlink to uploads
-echo "Symlinking $UPLOAD_PATH into $LINK_TO/public/uploads"
-sudo -u $USER ln -s $UPLOAD_PATH $LINK_TO/public/uploads
+if [ -n "$UPLOAD_PATH" ]; then
+	echo "Symlinking $UPLOAD_PATH into $LINK_TO/public/uploads"
+	sudo -u $USER ln -s $UPLOAD_PATH $LINK_TO/public/uploads
+fi
 
 # Restarting app server
 echo "Restarting app server"

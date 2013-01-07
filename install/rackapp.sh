@@ -8,7 +8,7 @@ if [ -z "$APPNAME" ]; then
 	exit 1
 fi
 
-echo "Installing rack application $APPNAME..."
+echo "Installing rack application $APPNAME served by Unicorn..."
 
 ME=`whoami`
 if [ "$ME" != "root" ]; then
@@ -17,30 +17,20 @@ if [ "$ME" != "root" ]; then
 fi
 
 if [ ! -d /etc/nginx ]; then
-	echo "nginx is necessary for proxying to the rackapp."
+	echo "nginx is necessary for proxying to the rack app."
+	exit 1
+fi
+
+if [ ! -d /home/$APPNAME ]; then
+	echo "The user $APPNAME does not seem to exist."
 	exit 1
 fi
 
 echo
-echo "Checking /home/rackapps/$APPNAME folder..."
-if [ ! -d /home/rackapps ]; then
-	echo " => create /home/rackapps"
-	cd /home
-	mkdir rackapps
-	chown www-data:www-data rackapps
-fi
-if [ ! -d /home/rackapps/$APPNAME ]; then
-	echo " => create /home/rackapps/$APPNAME"
-	cd /home/rackapps
-	mkdir $APPNAME
-	chown www-data:www-data $APPNAME
-fi
-
-echo
-echo "Installing init.d script into /etc/init.d/$APPNAME"
-cat /root/hosting-scripts/services/unicorn | sed s/XXXXXX/$APPNAME/g > /etc/init.d/$APPNAME
-chmod +x /etc/init.d/$APPNAME
-update-rc.d $APPNAME defaults 
+echo "Installing init.d script into /etc/init.d/unicorn-$APPNAME"
+cat /root/hosting-scripts/services/unicorn | sed s/XXXXXX/$APPNAME/g > /etc/init.d/unicorn-$APPNAME
+chmod +x /etc/init.d/unicorn-$APPNAME
+update-rc.d unicorn-$APPNAME defaults 
 
 echo
 echo "Installing nginx site into /etc/nginx/sites-available/$APPNAME"
@@ -49,6 +39,7 @@ cat /root/hosting-scripts/nginx-sites/unicorn-site | sed s/XXXXXX/$APPNAME/g > /
 echo
 echo "Creating manual deploy script in /root/deploy-$APPNAME.sh"
 cat /root/hosting-scripts/deploy/manual/deploy.sh | sed s/XXXXXX/$APPNAME/g > /root/deploy-$APPNAME.sh
+chmod 744 /root/deploy-$APPNAME.sh
 
 echo
 echo "The site can be enabled in nginx with the following:"
