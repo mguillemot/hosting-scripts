@@ -21,9 +21,7 @@ adduser --shell /bin/zsh --ingroup rvm --disabled-password --disabled-login $USE
 
 echo
 echo "Setting .zshrc..."
-ln -s /root/hosting-scripts/settings/zshrc /home/$USER/.zshrc
-chown $USER /home/$USER/.zshrc
-chmod 644 /home/$USER/.zshrc
+sudo -u $USER echo "source /root/hosting-scripts/settings/zshrc" > ~/.zshrc
 
 echo
 echo "Done!"

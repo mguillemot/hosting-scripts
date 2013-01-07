@@ -17,8 +17,7 @@ git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 chsh -s /bin/zsh
 
 echo "Setting .zshrc for root..."
-rm -f ~/.zshrc
-ln -s /root/hosting-scripts/settings/zshrc ~/.zshrc
+echo "source /root/hosting-scripts/settings/zshrc" > ~/.zshrc
 
 echo
 echo "All done! (restart the shell for changes to take effect)"

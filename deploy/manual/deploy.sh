@@ -4,6 +4,7 @@ APPNAME="XXXXXX"                                     # the name of the rack appl
 REPO="ssh://git@bitbucket.org/mguillemot/XXXXXX.git" # where to get the code from
 UPLOAD_PATH="uploads"                                # dir preserved between deployments (might be disabled by setting to blank)
 
+USER=$APPNAME
 VERSION=$(date +%s)
 
 # Check rights
