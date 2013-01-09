@@ -17,15 +17,18 @@ apt-get -y update
 apt-get -y install postgresql-9.2 libpq-dev
 
 echo
-echo "Setting up postgres password..."
-sudo -u postgres psql -c '\password'
+echo "Recreating cluster with UTF-8 encoding and no locale..."
+/etc/init.d/postgresql stop
+pg_dropcluster 9.2 main
+pg_createcluster -e UTF-8 --locale C -d /home/postgresql/9.2/main 9.2 main
 
 echo
-echo "Moving the data directory to /home..."
-/etc/init.d/postgresql stop
-mv /var/lib/postgresql /home
-ln -s /home/postgresql /var/lib/postgresql
+echo "Starting the new cluster..."
 /etc/init.d/postgresql start
+
+echo
+echo "Setting up postgres password..."
+sudo -u postgres psql -c '\password'
 
 echo
 echo "Don't forget to restart the server after any modification:"

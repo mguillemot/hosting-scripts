@@ -20,6 +20,10 @@ cd
 \curl -L https://get.rvm.io | bash -s stable --ruby
 
 echo
+echo "Installing useful packages..."
+apt-get install -y libv8-dev
+
+echo
 echo "Installing useful gems..."
 gem install bundler rake
 
