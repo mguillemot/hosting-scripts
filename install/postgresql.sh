@@ -14,7 +14,7 @@ echo
 echo "Installing packages..."
 add-apt-repository ppa:pitti/postgresql
 apt-get -y update
-apt-get -y install postgresql-9.2 libpq-dev
+apt-get -y install postgresql-9.2 libpq-dev postgresql-contrib-9.2
 
 echo
 echo "Recreating cluster with UTF-8 encoding and no locale..."
