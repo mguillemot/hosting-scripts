@@ -8,6 +8,7 @@ ZSH_THEME="candy"
 source /etc/profile
 
 # Aliases
+alias be="bundle exec"
 alias du="du -h --max-depth=1"
 alias df="df -h"
 alias s="screen -DRU"
