@@ -4,6 +4,9 @@ ZSH=/root/.oh-my-zsh
 # Theme
 ZSH_THEME="candy"
 
+# Load RVM
+source /etc/profile
+
 # Aliases
 alias du="du -h --max-depth=1"
 alias df="df -h"

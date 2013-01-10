@@ -17,7 +17,8 @@ apt-get install -y build-essential openssl libreadline6 libreadline6-dev curl gi
 echo
 echo "Installing RVM with latest Ruby..."
 cd
-\curl -L https://get.rvm.io | bash -s stable --ruby
+\curl -L https://get.rvm.io | sudo bash -s stable --ruby
+# Note: sudo is necessary here for rvm multi-user install
 
 echo
 echo "Installing useful packages..."
