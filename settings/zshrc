@@ -22,4 +22,7 @@ plugins=(git)
 # Loads oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 
-# Paths and more...
+# Local config
+if [ -f ~/.env ]; then
+	source ~/.env
+fi
