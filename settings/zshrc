@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh configuration.
-ZSH=/root/.oh-my-zsh
+ZSH=/etc/oh-my-zsh
 
 # Theme
 ZSH_THEME="candy"

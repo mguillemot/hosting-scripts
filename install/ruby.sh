@@ -25,10 +25,10 @@ echo "Installing useful packages..."
 apt-get install -y libv8-dev
 
 echo
-echo "Installing useful gems..."
-gem install bundler rake
+echo "After restarting your shell, you might want to install useful gems:"
+echo "gem install bundler rake --no-rdoc --no-ri"
 
 echo
-echo "Installation status:"
-ruby -v
-gem list
+echo "Also check install status:"
+echo "ruby -v"
+echo "gem list"

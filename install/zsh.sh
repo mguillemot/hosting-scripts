@@ -11,13 +11,13 @@ echo "Installing zsh..."
 apt-get install -y zsh
 
 echo
-echo "Installing oh-my-zsh..."
-rm -Rf ~/.oh-my-zsh
-git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+echo "Installing oh-my-zsh into /etc..."
+rm -Rf /etc/oh-my-zsh
+git clone git://github.com/robbyrussell/oh-my-zsh.git /etc/oh-my-zsh
 chsh -s /bin/zsh
 
 echo "Setting .zshrc for root..."
-echo "source /root/hosting-scripts/settings/zshrc" > ~/.zshrc
+echo "source /etc/hosting-scripts/settings/zshrc" > /root/.zshrc
 
 echo
 echo "All done! (restart the shell for changes to take effect)"

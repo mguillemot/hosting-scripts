@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Add a new user to the system.
+# Add a new system user to the system.
 
 USER="$1"
 
@@ -21,7 +21,7 @@ adduser --shell /bin/zsh --ingroup rvm --disabled-password --disabled-login $USE
 
 echo
 echo "Setting .zshrc..."
-sudo -u $USER echo "source /root/hosting-scripts/settings/zshrc" > ~/.zshrc
+sudo -u $USER echo "source /etc/hosting-scripts/settings/zshrc" > /home/$USER/.zshrc
 
 echo
 echo "Done!"

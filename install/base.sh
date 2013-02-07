@@ -23,17 +23,16 @@ aptitude update
 aptitude safe-upgrade
 
 echo
-echo "Checking-out hosting scripts..."
-cd /root
-rm -Rf hosting-scripts
-git clone git://github.com/mguillemot/hosting-scripts.git
+echo "Checking-out hosting scripts into /etc..."
+rm -Rf /etc/hosting-scripts
+git clone git://github.com/mguillemot/hosting-scripts.git /etc/hosting-scripts
 
 echo
 echo "Checking for add-apt-repository..."
 if ! type "add-apt-repository" 2> /dev/null; then
 		echo "...necessary. Installing script..."
-		chmod 500 /root/hosting-scripts/debian/add-apt-repository.sh
-		ln -s /root/hosting-scripts/debian/add-apt-repository.sh /usr/bin/add-apt-repository
+		chmod 500 /etc/hosting-scripts/debian/add-apt-repository.sh
+		ln -s /etc/hosting-scripts/debian/add-apt-repository.sh /usr/bin/add-apt-repository
 		echo
 		add-apt-repository
 else
