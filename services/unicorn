@@ -15,9 +15,12 @@ APP_HOME="/home/$APP_NAME/head"
 PID="/var/run/unicorn/$APP_NAME.pid"
 UNICORN_OPTS="-c $APP_HOME/config/unicorn.rb -E production -D"
 
-if [ ! -d /var/run/unicorn ]
-then
+if [ ! -d /var/run/unicorn ]; then
 	mkdir /var/run/unicorn
+fi
+
+if [ -f /home/$APP_NAME/.env ]; then
+	source /home/$APP_NAME/.env
 fi
 
 cd $APP_HOME || exit 1
