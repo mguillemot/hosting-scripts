@@ -12,19 +12,14 @@ fi
 
 echo
 echo "Installing packages..."
-apt-get install mysql-server libmysqlclient16
+apt-get install -y mysql-server libmysqlclient18
 
 echo
-echo "Creating data dir..."
-cd /home
-mkdir mysql
-chown mysql:mysql mysql
+echo "Moving data dir from /var/lib/mysql to /home/mysql"
+stop mysql
+mv /var/lib/mysql /home
+ln -s /home/mysql /var/lib/mysql
+start mysql
 
 echo
-echo "Configuration has been installed to /etc/mysql/my.cnf"
-echo "You should edit the following values:"
-echo "datadir = /home/mysql"
-
-echo
-echo "Don't forget to restart the server after modification:"
-echo "restart mysql"
+echo "All done!"

@@ -12,12 +12,12 @@ fi
 
 echo
 echo "Installing packages..."
-apt-get install php5-cli php5-cgi php5-mysql
+apt-get install -y php5-cli php5-cgi php5-mysql
 
 echo
-echo "Installing init.d scripts..."
-cd /etc/init.d
-ln -s /root/hosting-scripts/services/php-fastcgi php-fastcgi
+echo "Installing init.d script..."
+cp /etc/hosting-scripts/services/php-fastcgi /etc/init.d/php-fastcgi
+chmod +x /etc/init.d/php-fastcgi
 update-rc.d php-fastcgi defaults 
 
 echo

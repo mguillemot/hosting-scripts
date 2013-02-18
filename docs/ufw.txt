@@ -11,17 +11,27 @@ ufw status numbered
 Si besoin d'installer une appli custom:
 
 PROFILE=/etc/ufw/applications.d/gos
-echo "[GoS]" > $PROFILE
-echo "title=Gangs of Space game server + socket policy server" >> $PROFILE
-echo "ports=843,1337/tcp" >> $PROFILE
+echo "[GoS Policy]" > $PROFILE
+echo "title=Gangs of Space policy server" >> $PROFILE
+echo "ports=843/tcp" >> $PROFILE
+echo "" >> $PROFILE
+echo "[GoS Monitoring]" >> $PROFILE
+echo "title=Gangs of Space server monitoring" >> $PROFILE
+echo "ports=27000:27999/tcp" >> $PROFILE
+echo "" >> $PROFILE
+echo "[GoS]" >> $PROFILE
+echo "title=Gangs of Space game servers" >> $PROFILE
+echo "ports=7000:7999/udp" >> $PROFILE
 ufw allow GoS
+ufw allow "GoS Monitoring"
+ufw allow "GoS Policy"
 
 ==========
 
 Si besoin de motifier une appli custom:
 
 Apres avoir change le fichier profil:
-ufw app reload GoS
+ufw app update GoS
 
 ==========
 

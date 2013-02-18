@@ -25,9 +25,8 @@ time sudo -u $USER git clone $REPO . --depth 0
 if [ "$QUICK" ]; then
 	echo "Skipping Bundler gem resolution"
 else
-	time bundle install
+	time bundle install --without assets
 fi
-time bundle exec rake assets:precompile
 
 # Change current app server symlink
 echo "Symlinking /home/$APPNAME/$VERSION into /home/$APPNAME/head"
