@@ -2,7 +2,6 @@
 
 # Node.js + NPM installation script.
 # Following official instructions of: https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager
-#                                and: http://npmjs.org/
 
 echo "Installing node.js..."
 
@@ -14,20 +13,16 @@ fi
 
 echo
 echo "Setting-up APT repository..."
-apt-get install python-software-properties
+apt-get -y install python-software-properties python g++ make software-properties-common
 add-apt-repository ppa:chris-lea/node.js
 
 echo
 echo "Updating repositories..."
-apt-get update
+apt-get -y update
 
 echo
 echo "Installing node.js..."
-apt-get install nodejs nodejs-dev
-
-echo
-echo "Installing NPM..."
-curl http://npmjs.org/install.sh | sh
+apt-get -y install nodejs
 
 echo
 echo "Versions installed:"
