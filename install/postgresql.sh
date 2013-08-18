@@ -12,7 +12,8 @@ fi
 
 echo
 echo "Installing packages..."
-add-apt-repository ppa:pitti/postgresql
+add-apt-repository 'deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main'
+wget --quiet -O - http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc | sudo apt-key add -
 apt-get -y update
 apt-get -y install postgresql-9.2 libpq-dev postgresql-contrib-9.2
 
