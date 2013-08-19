@@ -21,10 +21,6 @@ cd
 # Note: sudo is necessary here for rvm multi-user install
 
 echo
-echo "Installing useful packages..."
-apt-get install -y libv8-dev
-
-echo
 echo "After restarting your shell, you might want to install useful gems:"
 echo "gem install bundler rake --no-rdoc --no-ri"
 
