@@ -29,7 +29,7 @@ service nginx start
 
 echo
 echo "Do not forget to enable the server in the firewall:"
-echo ufw allow "Nginx Full"
+echo "ufw allow 'Nginx Full'"
 
 echo
 echo "To restart the server after modification:"
