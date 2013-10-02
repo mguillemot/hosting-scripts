@@ -17,7 +17,11 @@ fi
 
 echo
 echo "Creating user $USER..."
-adduser --shell /bin/zsh --ingroup rvm --disabled-password --disabled-login $USER
+adduser --shell /bin/zsh --disabled-password --disabled-login $USER
+
+echo
+echo "Trying to add the user to the rvm group..."
+adduser $USER rvm
 
 echo
 echo "Setting .zshrc..."
