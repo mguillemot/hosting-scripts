@@ -20,13 +20,9 @@ echo "Creating user $USER..."
 adduser --shell /bin/zsh --disabled-password --disabled-login $USER
 
 echo
-echo "Trying to add the user to the rvm group..."
-adduser $USER rvm
-
-echo
 echo "Setting .zshrc..."
 sudo -u $USER echo "source /etc/hosting-scripts/settings/zshrc" > /home/$USER/.zshrc
-chown $USER:rvm /home/$USER/.zshrc
+chown $USER /home/$USER/.zshrc
 
 echo
 echo "Done!"

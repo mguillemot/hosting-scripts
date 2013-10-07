@@ -4,6 +4,7 @@
 #  - get the basic packages for common stuff (git, htop...)
 #  - checkout the hosting scripts in /root/hosting-scripts
 #  - ensure add-apt-repository is available for usage by the other scripts to follow
+#  - install ZSH for the currant and all future users
 
 echo "Installing base system..."
 
@@ -15,12 +16,12 @@ fi
 
 echo
 echo "Installing base packages..."
-apt-get install -y aptitude git htop curl wget ntp bind9 dos2unix sudo ufw sysstat python-software-properties
+apt-get install -y aptitude git htop curl wget ntp bind9 dos2unix sudo ufw sysstat python-software-properties zsh
 
 echo
 echo "Upgrading base system..."
 aptitude update
-aptitude safe-upgrade
+aptitude safe-upgrade -y
 
 echo
 echo "Checking-out hosting scripts into /etc..."
@@ -40,4 +41,13 @@ else
 fi
 
 echo
-echo "All done!"
+echo "Installing oh-my-zsh into /etc..."
+rm -Rf /etc/oh-my-zsh
+git clone git://github.com/robbyrussell/oh-my-zsh.git /etc/oh-my-zsh
+chsh -s /bin/zsh
+
+echo "Setting .zshrc for root..."
+echo "source /etc/hosting-scripts/settings/zshrc" > /root/.zshrc
+
+echo
+echo "All done! (restart the shell for changes to take effect)"
