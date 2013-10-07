@@ -1,8 +1,10 @@
 #!/bin/bash
 
-# Ruby (via RVM) installation script.
+# Ruby (from source) installation script.
 
-echo "Installing latest Ruby via RVM..."
+VERSION="2.0.0-p247"
+
+echo "Installing Ruby $VERSION..."
 
 ME=`whoami`
 if [ "$ME" != "root" ]; then
@@ -11,14 +13,25 @@ if [ "$ME" != "root" ]; then
 fi
 
 echo
-echo "Installing RVM dependencies..."
-apt-get install -y build-essential openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev automake libtool bison subversion pkg-config
+echo "Installing Ruby dependencies..."
+apt-get install -y build-essential openssl libreadline6-dev curl git-core zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev libxml2-dev autoconf libc6-dev ncurses-dev automake libtool bison subversion pkg-config libncurses5-dev file libxslt1-dev
 
 echo
-echo "Installing RVM with latest Ruby..."
+echo "Downloading source code for Ruby $VERSION..."
 cd
-\curl -L https://get.rvm.io | sudo bash -s stable --ruby
-# Note: sudo is necessary here for rvm multi-user install
+mkdir -p src && cd src
+wget ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-$VERSION.tar.gz
+tar xzf ruby-$VERSION.tar.gz
+
+echo
+echo "Compiling Ruby $VERSION..."
+cd ruby-$VERSION
+# Configure flags explanation:
+#   prefix=/usr/local is probably default, but I specify to be sure
+#   enabled-shared option builds libruby.so, which you may need later
+#   docdir puts docs in a Debian standard location (you may want something different)
+./configure --prefix=/usr/local --docdir=/usr/share/doc/ruby-2.0.0 --enable-shared && make
+make install
 
 echo
 echo "After restarting your shell, you might want to install useful gems:"
