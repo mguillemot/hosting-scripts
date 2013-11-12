@@ -13,7 +13,7 @@ fi
 
 echo
 echo "Setting-up APT repository..."
-add-apt-repository ppa:rwky/redis
+add-apt-repository ppa:chris-lea/redis-server
 
 echo
 echo "Updating repositories..."
@@ -25,9 +25,11 @@ apt-get -y install redis-server
 
 echo
 echo "Moving the data dir to /home/redis..."
+/etc/init.d/redis-server stop
 mkdir -p /home/redis
-cat /etc/redis/redis.conf | sed 's:dir /var/lib/redis/:dir /home/redis/:' > /etc/redis/redis.conf
-service redis-server restart
+cp /etc/redis/redis.conf /etc/redis/redis.conf.bak
+cat /etc/redis/redis.conf.bak | sed 's:dir /var/lib/redis:dir /home/redis:' > /etc/redis/redis.conf
+/etc/init.d/redis-server start
 
 echo
 echo "If you edit the config file at /etc/redis/redis.conf, don't forget to restart the server afterwards:"
