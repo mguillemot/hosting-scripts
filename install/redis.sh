@@ -26,6 +26,7 @@ apt-get -y install redis-server
 echo
 echo "Moving the data dir to /home/redis..."
 mkdir -p /home/redis
+chown redis:redis /home/redis
 cat /etc/redis/redis.conf | sed 's:dir /var/lib/redis/:dir /home/redis/:' > /etc/redis/redis.conf
 service redis-server restart
 
