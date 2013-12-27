@@ -2,7 +2,8 @@
 
 # Ruby (from source) installation script.
 
-VERSION="2.0.0-p247"
+BRANCH="2.1"
+VERSION="2.1.0"
 
 echo "Installing Ruby $VERSION..."
 
@@ -20,7 +21,7 @@ echo
 echo "Downloading source code for Ruby $VERSION..."
 cd
 mkdir -p src && cd src
-wget ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-$VERSION.tar.gz
+wget ftp://ftp.ruby-lang.org/pub/ruby/$BRANCH/ruby-$VERSION.tar.gz
 tar xzf ruby-$VERSION.tar.gz
 
 echo
@@ -29,8 +30,7 @@ cd ruby-$VERSION
 # Configure flags explanation:
 #   prefix=/usr/local is probably default, but I specify to be sure
 #   enabled-shared option builds libruby.so, which you may need later
-#   docdir puts docs in a Debian standard location (you may want something different)
-./configure --prefix=/usr/local --docdir=/usr/share/doc/ruby-2.0.0 --enable-shared && make
+./configure --prefix=/usr/local --enable-shared && make
 make install
 
 echo
