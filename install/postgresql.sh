@@ -2,7 +2,7 @@
 
 # PostgreSQL installation script.
 
-echo "Installing PostgreSQL 9.2..."
+echo "Installing PostgreSQL 9.3..."
 
 ME=`whoami`
 if [ "$ME" != "root" ]; then
@@ -15,13 +15,13 @@ echo "Installing packages..."
 add-apt-repository 'deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main'
 wget --quiet -O - http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc | sudo apt-key add -
 apt-get -y update
-apt-get -y install postgresql-9.2 libpq-dev postgresql-contrib-9.2
+apt-get -y install postgresql-9.3 libpq-dev postgresql-contrib-9.3
 
 echo
 echo "Recreating cluster with UTF-8 encoding and no locale..."
 /etc/init.d/postgresql stop
-pg_dropcluster 9.2 main
-pg_createcluster -e UTF-8 --locale C -d /home/postgresql/9.2/main 9.2 main
+pg_dropcluster 9.3 main
+pg_createcluster -e UTF-8 --locale C -d /home/postgresql/9.3/main 9.3 main
 
 echo
 echo "Starting the new cluster..."
