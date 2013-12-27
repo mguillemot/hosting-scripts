@@ -1,6 +1,10 @@
 #!/bin/bash
 
 # PostgreSQL installation script.
+#
+# This will install a FRESH version of PostgreSQL, with an empty "main" cluster.
+# To upgrade from a previous version, use the following:
+# pg_upgradecluster 9.2 main /home/postgresql/9.3/main
 
 echo "Installing PostgreSQL 9.3..."
 
@@ -19,13 +23,13 @@ apt-get -y install postgresql-9.3 libpq-dev postgresql-contrib-9.3
 
 echo
 echo "Recreating cluster with UTF-8 encoding and no locale..."
-/etc/init.d/postgresql stop
+service postgresql stop
 pg_dropcluster 9.3 main
 pg_createcluster -e UTF-8 --locale C -d /home/postgresql/9.3/main 9.3 main
 
 echo
 echo "Starting the new cluster..."
-/etc/init.d/postgresql start
+service postgresql start
 
 echo
 echo "Setting up postgres password..."
@@ -33,4 +37,4 @@ sudo -u postgres psql -c '\password'
 
 echo
 echo "Don't forget to restart the server after any modification:"
-echo "/etc/init.d/postgresql restart"
+echo "service postgresql restart"
