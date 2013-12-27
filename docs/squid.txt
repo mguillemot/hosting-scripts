@@ -4,12 +4,18 @@
 Installe squid sur le port 3128 par défaut.
 
 
-aptitude install squid squid-common apache2-utils
-htpasswd -c /etc/squid/squid.passwd <user>
-vi /etc/squid/squid.conf
-restart squid
+aptitude install squid squid-common 
+echo "<user>:<passwd>" > /etc/squid3/squid.passwd
+vi /etc/squid3/squid.conf
+restart squid3
 
 Modifs à apporter au fichier de conf:
 
 acl users proxy_auth REQUIRED
 http_access allow users
+auth_param digest program /usr/lib/squid3/digest_pw_auth /etc/squid3/squid.passwd
+auth_param digest children 5
+auth_param digest realm Squid proxy-caching web server
+auth_param digest nonce_garbage_interval 5 minutes
+auth_param digest nonce_max_duration 30 minutes
+auth_param digest nonce_max_count 50
