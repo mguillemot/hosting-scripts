@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Add a new system user to the system.
+# Add a new user to the system.
 
 USER="$1"
 
@@ -17,7 +17,7 @@ fi
 
 echo
 echo "Creating user $USER..."
-adduser --shell /bin/zsh --disabled-password --disabled-login $USER
+adduser --shell /bin/zsh $USER
 
 echo
 echo "Setting .zshrc..."
