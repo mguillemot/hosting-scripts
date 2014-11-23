@@ -25,4 +25,8 @@ sudo -u $USER echo "source /etc/hosting-scripts/settings/zshrc" > /home/$USER/.z
 chown $USER /home/$USER/.zshrc
 
 echo
+echo "Generating SSH key..."
+sudo -u $USER ssh-keygen
+
+echo
 echo "Done!"
