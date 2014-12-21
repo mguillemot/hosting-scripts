@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Add a new system user to the system.
+# Add a new user to the system.
 
 USER="$1"
 
@@ -23,6 +23,10 @@ echo
 echo "Setting .zshrc..."
 sudo -u $USER echo "source /etc/hosting-scripts/settings/zshrc" > /home/$USER/.zshrc
 chown $USER /home/$USER/.zshrc
+
+echo
+echo "Generating SSH key..."
+sudo -u $USER ssh-keygen
 
 echo
 echo "Done!"
