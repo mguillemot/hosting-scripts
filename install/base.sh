@@ -16,7 +16,7 @@ fi
 
 echo
 echo "Installing base packages..."
-apt-get install -y aptitude git htop curl wget ntp bind9 dos2unix sudo ufw sysstat python-software-properties zsh
+apt-get install -y aptitude git htop curl wget bind9 dos2unix sudo ufw sysstat python-software-properties zsh
 
 echo
 echo "Upgrading base system..."
