@@ -17,7 +17,7 @@ fi
 
 echo
 echo "Creating user $USER..."
-adduser --shell /bin/zsh --disabled-password --disabled-login $USER
+adduser --shell /bin/zsh $USER
 
 echo
 echo "Setting .zshrc..."
