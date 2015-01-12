@@ -20,7 +20,7 @@ projects.each do |project, project_archives|
       delta_days = (DateTime.now - project_archive_date).to_f
       if delta_days > KEEP_DAYS
         puts "  Deleting #{archive_name} since it is #{delta_days} days old..."
-        `tarsnap -d -f #{archive_name}`
+        `/usr/local/bin/tarsnap -d -f #{archive_name}`
         deleted += 1
       else
         puts "  Keeping #{archive_name} since it is only #{delta_days} days old"
