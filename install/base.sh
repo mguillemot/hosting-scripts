@@ -17,6 +17,10 @@ if [ "$ME" != "root" ]; then
 fi
 
 echo
+echo "Setting timezone to UTC..."
+dpkg-reconfigure tzdata
+
+echo
 echo "Installing common packages..."
 apt-get install -y aptitude git htop curl wget dos2unix sudo ufw sysstat python-software-properties zsh systemd-sysv
 
