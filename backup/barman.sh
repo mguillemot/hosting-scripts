@@ -4,11 +4,11 @@ DB="gosalpha"
 
 NOW=$(date +%Y%m%d-%H%M%S)
 echo "$NOW | Starting barman snapshot of $DB..."
-/usr/bin/barman backup $DB
+sudo -u barman /usr/bin/barman backup $DB
 
 NOW=$(date +%Y%m%d-%H%M%S)
 echo "$NOW | Pruning old snapshots..."
-/usr/bin/barman cron
+sudo -u barman /usr/bin/barman cron
 
 NOW=$(date +%Y%m%d-%H%M%S)
 LAST=$(ls /var/lib/barman/$DB/base | tail -n 1)
