@@ -22,7 +22,7 @@ dpkg-reconfigure tzdata
 
 echo
 echo "Installing common packages..."
-apt-get install -y aptitude git htop curl wget dos2unix sudo ufw sysstat python-software-properties zsh systemd-sysv
+apt-get install -y aptitude git htop curl wget dos2unix sudo ufw unzip sysstat python-software-properties zsh systemd-sysv
 
 echo
 echo "Upgrading base system..."
