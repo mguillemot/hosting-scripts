@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # redis installation script.
-# Uses a PPA to always keep the latest stable version!
 
 echo "Installing redis..."
 
@@ -12,10 +11,6 @@ if [ "$ME" != "root" ]; then
 fi
 
 echo
-echo "Setting-up APT repository..."
-add-apt-repository ppa:chris-lea/redis-server
-
-echo
 echo "Updating repositories..."
 apt-get -y update
 
@@ -24,14 +19,5 @@ echo "Installing package..."
 apt-get -y install redis-server
 
 echo
-echo "Moving the data dir to /home/redis..."
-/etc/init.d/redis-server stop
-mkdir -p /home/redis
-chown redis:redis /home/redis
-cp /etc/redis/redis.conf /etc/redis/redis.conf.bak
-cat /etc/redis/redis.conf.bak | sed 's:dir /var/lib/redis:dir /home/redis:' > /etc/redis/redis.conf
-/etc/init.d/redis-server start
-
-echo
 echo "If you edit the config file at /etc/redis/redis.conf, don't forget to restart the server afterwards:"
-echo "service redis-server restart"
+echo "systemctl restart redis-server"

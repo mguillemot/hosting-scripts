@@ -1,11 +1,8 @@
 #!/bin/bash
 
-# Ruby (from source) installation script.
+# Ruby installation script.
 
-BRANCH="2.1"
-VERSION="2.1.0"
-
-echo "Installing Ruby $VERSION..."
+echo "Installing Ruby..."
 
 ME=`whoami`
 if [ "$ME" != "root" ]; then
@@ -14,30 +11,15 @@ if [ "$ME" != "root" ]; then
 fi
 
 echo
-echo "Installing Ruby dependencies..."
-apt-get install -y build-essential openssl libreadline6-dev curl git-core zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev libxml2-dev autoconf libc6-dev ncurses-dev automake libtool bison subversion pkg-config libncurses5-dev file libxslt1-dev
+echo "Updating repositories..."
+apt-get -y update
 
 echo
-echo "Downloading source code for Ruby $VERSION..."
-cd
-mkdir -p src && cd src
-wget ftp://ftp.ruby-lang.org/pub/ruby/$BRANCH/ruby-$VERSION.tar.gz
-tar xzf ruby-$VERSION.tar.gz
+echo "Installing packages..."
+apt-get -y install ruby2.3 ruby2.3-dev build-essential
+# other possible useful packages: subversion build-essential openssl libreadline6-dev curl git-core zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev libxml2-dev autoconf libc6-dev ncurses-dev automake libtool bison pkg-config libncurses5-dev file libxslt1-dev
 
 echo
-echo "Compiling Ruby $VERSION..."
-cd ruby-$VERSION
-# Configure flags explanation:
-#   prefix=/usr/local is probably default, but I specify to be sure
-#   enabled-shared option builds libruby.so, which you may need later
-./configure --prefix=/usr/local --enable-shared && make
-make install
-
-echo
-echo "After restarting your shell, you might want to install useful gems:"
-echo "gem install bundler rake --no-rdoc --no-ri"
-
-echo
-echo "Also check install status:"
-echo "ruby -v"
-echo "gem list"
+echo "All done!"
+ruby -v
+gem list
