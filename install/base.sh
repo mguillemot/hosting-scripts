@@ -2,11 +2,11 @@
 
 # Automatic install: curl https://raw.githubusercontent.com/mguillemot/hosting-scripts/master/install/base.sh | bash
 
-# Base system installation for Ubuntu Server >= 16.04 (LTS)
+# Base system installation for Ubuntu Server >= 16.04
 #  - asks the user to set the timezone of the server to UTC
 #  - get the basic packages for common stuff (git, htop...)
 #  - checkout the hosting scripts in /etc/hosting-scripts
-#  - install oh-my-zsh in /etc/oh-my-zsh for root and all future users
+#  - set a default bash env for root and all future users
 
 echo "Installing base system..."
 
@@ -22,7 +22,7 @@ dpkg-reconfigure tzdata
 
 echo
 echo "Installing common packages..."
-apt-get install -y aptitude git htop curl wget dos2unix sudo ufw unzip sysstat python-software-properties zsh
+apt-get install -y aptitude git htop curl wget dos2unix sudo ufw unzip sysstat python-software-properties
 
 echo
 echo "Upgrading base system..."
@@ -34,14 +34,9 @@ echo "Checking-out hosting scripts into /etc..."
 rm -Rf /etc/hosting-scripts
 git clone git://github.com/mguillemot/hosting-scripts.git /etc/hosting-scripts
 
-echo
-echo "Installing oh-my-zsh into /etc..."
-rm -Rf /etc/oh-my-zsh
-git clone git://github.com/robbyrussell/oh-my-zsh.git /etc/oh-my-zsh
-chsh -s /bin/zsh
-
-echo "Setting .zshrc for root..."
-echo "source /etc/hosting-scripts/settings/zshrc" > /root/.zshrc
+echo "Setting bash for root..."
+rm -f /root/.bash_aliases
+ln -s /etc/hosting-scripts/settings/bash_aliases /root/.bash_aliases
 
 echo
 echo "Restart your terminal for changes to take effect!"

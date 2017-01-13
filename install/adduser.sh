@@ -17,12 +17,13 @@ fi
 
 echo
 echo "Creating user $USER..."
-adduser --shell /bin/zsh $USER
+adduser $USER
 
 echo
-echo "Setting .zshrc..."
-sudo -u $USER echo "source /etc/hosting-scripts/settings/zshrc" > /home/$USER/.zshrc
-chown $USER /home/$USER/.zshrc
+echo "Setting default bash config..."
+rm -f /home/$USER/.bash_aliases
+ln -s /etc/hosting-scripts/settings/bash_aliases /home/$USER/.bash_aliases
+chown $USER /home/$USER/.bash_aliases
 
 echo
 echo "Generating SSH key..."

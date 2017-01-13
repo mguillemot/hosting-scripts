@@ -1,0 +1,18 @@
+# Aliases
+alias ll="ls -l"
+alias la="ls -la"
+alias be="bundle exec"
+alias du="du -h --max-depth=1"
+alias df="df -h"
+alias s="screen -DRU"
+
+# Prefix-sensitive history search
+bind '"\e[A":history-search-backward'
+bind '"\e[B":history-search-forward'
+
+# Export local env
+if [ -f ~/.env ]; then
+	for e in $(cat ~/.env); do
+		export $e
+	done
+fi
