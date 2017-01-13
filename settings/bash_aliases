@@ -13,6 +13,6 @@ bind '"\e[B":history-search-forward'
 # Export local env
 if [ -f ~/.env ]; then
 	for e in $(cat ~/.env); do
-		export $e
+		eval export $e
 	done
 fi
