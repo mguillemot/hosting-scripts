@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DBS=(gos)
+DBS=(gos akibammo)
 
 for DB in ${DBS[*]}; do
 	NOW=$(date +%Y%m%d-%H%M%S)
