@@ -4,6 +4,7 @@ alias la="ls -lah"
 alias be="bundle exec"
 alias du="du -h --max-depth=1"
 alias df="df -h"
+alias less="less -r"
 alias s="screen -DRU"
 
 # Prefix-sensitive history search
